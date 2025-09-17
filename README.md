@@ -1,6 +1,6 @@
 # ⚡ PRD – Prison Alliance Zimbabwe Admin Portal  
 *(Product Requirements Document | v0.1 – 15 Sep 2025)*  
-**For:** Kilo Code (VS Code) → OpenRouter Qwen3 Coder 480B A35B (free tier)  
+**For:** Kilo Code (VS Code) → GPT-4o-mini and DeepSeek-Coder-V2 
 **Mode flow:** Architect → Orchestrator → Code
 
 ---
