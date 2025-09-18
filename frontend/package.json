@@ -1,0 +1,36 @@
+{
+  "name": "paz-admin-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "next": "14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "axios": "^1.6.0",
+    "js-cookie": "^3.0.5",
+    "react-hook-form": "^7.48.0",
+    "react-datepicker": "^4.25.0",
+    "qrcode.react": "^3.1.0",
+    "lucide-react": "^0.294.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5",
+    "eslint": "^8.53.0",
+    "eslint-config-next": "14.0.0",
+    "jest": "^29.7.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/user-event": "^14.5.1",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
