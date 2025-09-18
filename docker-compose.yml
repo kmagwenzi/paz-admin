@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: paz_admin_db
+      POSTGRES_USER: paz_admin
+      POSTGRES_PASSWORD: paz_admin_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - paz-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/paz_admin_db
+      SPRING_DATASOURCE_USERNAME: paz_admin
+      SPRING_DATASOURCE_PASSWORD: paz_admin_password
+      PAZ_APP_JWTSECRET: production-jwt-secret-key-2024-change-in-production
+      PAZ_APP_JWTEXPIRATIONMS: 86400000
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - paz-network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:8080/api
+      API_URL: http://backend:8080/api
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - paz-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  paz-network:
+    driver: bridge

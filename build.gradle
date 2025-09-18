@@ -8,11 +8,6 @@ group = 'com.paz.admin'
 version = '0.0.1-SNAPSHOT'
 description = 'PAZ Admin Portal Backend'
 
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
-}
 
 repositories {
 	mavenCentral()
