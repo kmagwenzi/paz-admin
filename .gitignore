@@ -35,3 +35,17 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Node.js ###
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+### Frontend ###
+.next/
+.nuxt/
+dist/
+.env.local
+.env.*.local
