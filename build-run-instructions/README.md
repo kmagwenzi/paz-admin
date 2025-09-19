@@ -5,12 +5,14 @@ This comprehensive guide will help you set up, build, and run the PAZ Admin Port
 ## 📋 Prerequisites
 
 ### System Requirements
+
 - **Operating System**: Linux, macOS, or Windows 10/11
 - **Memory**: Minimum 8GB RAM (16GB recommended)
 - **Storage**: At least 2GB free space
 - **Network**: Internet connection for dependencies
 
 ### Required Software
+
 - **Java 21** or later ([Download JDK](https://adoptium.net/))
 - **Node.js 18+** and npm ([Download Node.js](https://nodejs.org/))
 - **PostgreSQL 15** ([Download PostgreSQL](https://www.postgresql.org/download/))
@@ -18,6 +20,7 @@ This comprehensive guide will help you set up, build, and run the PAZ Admin Port
 - **Git** for version control
 
 ### Verify Installations
+
 ```bash
 # Check Java version
 java -version
@@ -54,22 +57,26 @@ paz-admin/
 ## 🐳 Quick Start with Docker Compose (Recommended)
 
 ### 1. Clone and Navigate
+
 ```bash
 git clone <repository-url>
 cd paz-admin
 ```
 
 ### 2. Start All Services
+
 ```bash
 docker-compose up -d
 ```
 
 This command will start:
+
 - **PostgreSQL** database on port 5432
-- **Spring Boot Backend** on port 8080  
+- **Spring Boot Backend** on port 8080
 - **Next.js Frontend** on port 3000
 
 ### 3. Verify Services
+
 ```bash
 # Check running containers
 docker-compose ps
@@ -81,6 +88,7 @@ docker-compose logs postgres
 ```
 
 ### 4. Access the Application
+
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8080/api
 - **API Health**: http://localhost:8080/actuator/health
@@ -89,6 +97,7 @@ docker-compose logs postgres
 ## 🗄️ Manual PostgreSQL Setup
 
 ### Option 1: Using Docker (Recommended for Development)
+
 ```bash
 # Start PostgreSQL container
 docker run --name paz-postgres \
@@ -103,8 +112,10 @@ docker exec -it paz-postgres psql -U paz_admin -d paz_admin_db
 ```
 
 ### Option 2: Local PostgreSQL Installation
+
 1. Install PostgreSQL 15 on your system
 2. Create database and user:
+
 ```sql
 CREATE DATABASE paz_admin_db;
 CREATE USER paz_admin WITH PASSWORD 'paz_admin_password';
@@ -112,6 +123,7 @@ GRANT ALL PRIVILEGES ON DATABASE paz_admin_db TO paz_admin;
 ```
 
 ### Option 3: Using Docker Compose (Database Only)
+
 ```bash
 docker-compose up -d postgres
 ```
@@ -121,7 +133,9 @@ docker-compose up -d postgres
 ### Backend Setup (Spring Boot)
 
 #### 1. Configure Database Connection
+
 Edit `src/main/resources/application.properties`:
+
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/paz_admin_db
 spring.datasource.username=paz_admin
@@ -130,6 +144,7 @@ spring.jpa.hibernate.ddl-auto=validate
 ```
 
 #### 2. Build and Run Backend
+
 ```bash
 # Using Gradle Wrapper
 ./gradlew build
@@ -141,6 +156,7 @@ gradle bootRun
 ```
 
 #### 3. Verify Backend
+
 ```bash
 curl http://localhost:8080/actuator/health
 # Should return: {"status":"UP"}
@@ -149,13 +165,16 @@ curl http://localhost:8080/actuator/health
 ### Frontend Setup (Next.js)
 
 #### 1. Install Dependencies
+
 ```bash
 cd frontend
 npm install
 ```
 
 #### 2. Configure Environment
+
 Create `frontend/.env.local`:
+
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8080/api
 API_URL=http://localhost:8080/api
@@ -163,6 +182,7 @@ NODE_ENV=development
 ```
 
 #### 3. Run Development Server
+
 ```bash
 npm run dev
 # or
@@ -170,17 +190,21 @@ npm run build && npm start
 ```
 
 #### 4. Verify Frontend
+
 Open http://localhost:3000 in your browser
 
 ## 📊 Database Initialization and Sample Data
 
 ### Automatic Migration with Flyway
+
 The Spring Boot application uses Flyway for database migrations. On first run, it will automatically:
+
 - Create all required tables
 - Apply indexes and constraints
 - Seed initial data
 
 ### Manual Database Setup (If Needed)
+
 ```bash
 # Connect to PostgreSQL
 psql -h localhost -U paz_admin -d paz_admin_db
@@ -192,7 +216,9 @@ docker exec -it paz-postgres psql -U paz_admin -d paz_admin_db
 ## 🔧 Environment Configuration
 
 ### Backend Environment Variables
+
 Create `application-dev.properties` for development:
+
 ```properties
 # Database
 spring.datasource.url=jdbc:postgresql://localhost:5432/paz_admin_db
@@ -209,7 +235,9 @@ logging.level.zw.org.paz=DEBUG
 ```
 
 ### Frontend Environment Variables
+
 Create `frontend/.env.local`:
+
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8080/api
 API_URL=http://localhost:8080/api
@@ -219,6 +247,7 @@ NODE_ENV=development
 ## 🧪 Testing the Setup
 
 ### 1. Verify Database Connection
+
 ```bash
 # Using psql
 psql -h localhost -U paz_admin -d paz_admin_db -c "SELECT version();"
@@ -228,6 +257,7 @@ curl http://localhost:8080/actuator/health
 ```
 
 ### 2. Test Authentication
+
 ```bash
 # Test login endpoint
 curl -X POST http://localhost:8080/api/auth/login \
@@ -236,7 +266,9 @@ curl -X POST http://localhost:8080/api/auth/login \
 ```
 
 ### 3. Test Frontend-Backend Connection
+
 Open http://localhost:3000 and verify:
+
 - Page loads without errors
 - Login functionality works
 - API calls succeed (check browser developer tools)
@@ -244,6 +276,7 @@ Open http://localhost:3000 and verify:
 ## 🐛 Troubleshooting Common Issues
 
 ### Port Conflicts
+
 ```bash
 # Check what's using port 8080
 lsof -i :8080
@@ -256,6 +289,7 @@ lsof -i :5432
 ```
 
 ### Database Connection Issues
+
 ```bash
 # Verify PostgreSQL is running
 sudo systemctl status postgresql
@@ -265,6 +299,7 @@ telnet localhost 5432
 ```
 
 ### Build Issues
+
 ```bash
 # Clean and rebuild
 ./gradlew clean build
@@ -274,6 +309,7 @@ cd frontend && npm ci && npm run build
 ```
 
 ### Docker Issues
+
 ```bash
 # Check Docker status
 docker system info
@@ -288,9 +324,11 @@ docker system prune -a
 ## 🚀 Deployment Notes
 
 ### Production Environment Variables
+
 For production deployment, set these environment variables:
 
 **Backend:**
+
 ```bash
 export SPRING_DATASOURCE_URL=jdbc:postgresql://your-production-db:5432/paz_admin_db
 export SPRING_DATASOURCE_USERNAME=production_user
@@ -299,6 +337,7 @@ export PAZ_APP_JWTSECRET=strong-production-jwt-secret
 ```
 
 **Frontend:**
+
 ```env
 NEXT_PUBLIC_API_URL=https://your-api-domain.com/api
 API_URL=https://your-api-domain.com/api
@@ -306,6 +345,7 @@ NODE_ENV=production
 ```
 
 ### Health Check Endpoints
+
 - Backend Health: http://localhost:8080/actuator/health
 - Frontend Health: http://localhost:3000 (should load without errors)
 
@@ -319,6 +359,7 @@ NODE_ENV=production
 ## 🆘 Getting Help
 
 If you encounter issues:
+
 1. Check the troubleshooting section above
 2. Review application logs in the terminal
 3. Check Docker container logs
@@ -327,5 +368,5 @@ If you encounter issues:
 
 ---
 
-*Last Updated: 2025-09-18*  
+*Last Updated: 2025-09-18*
 *For additional support, refer to the main project documentation or contact the development team.*

@@ -1,0 +1,56 @@
+# Gradle build files
+.gradle
+build/
+out/
+bin/
+
+# Gradle wrapper (should be copied but not cached unnecessarily)
+gradle/wrapper/gradle-wrapper.jar
+
+# Log files
+*.log
+logs/
+
+# Runtime data
+*.pid
+*.seed
+*.pid.lock
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Test files
+src/test/
+
+# Application properties (except the ones we want to include)
+application*.properties
+!application-prod.properties
+
+# Git files
+.git/
+.gitignore
+
+# Docker files (except the ones we need)
+Dockerfile
+docker-compose.yml
+
+# Documentation files
+README.md
+*.md
+
+# Temporary files
+tmp/
+temp/
