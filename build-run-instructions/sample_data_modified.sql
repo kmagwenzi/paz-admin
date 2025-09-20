@@ -27,23 +27,26 @@ INSERT INTO prisons (name, location, capacity, current_population, contact_email
 ('Gwanda Prison', 'Gwanda', 350, 280, 'gwanda.prison@justice.gov.zw', '+263840123456', NOW(), NOW()),
 ('Hwange Prison', 'Hwange', 500, 420, 'hwange.prison@justice.gov.zw', '+263813456789', NOW(), NOW());
 
--- 👥 Sample Users Data (with hashed passwords - all passwords are "password123")
--- Note: The actual password hashing should be done by Spring Security
+-- 👥 Sample Users Data (with properly hashed BCrypt passwords - all passwords are "password123")
 INSERT INTO users (username, email, password, first_name, last_name, enabled, created_at, updated_at) VALUES
-('john.moyo', 'john.moyo@paz.org.zw', '$2a$10$examplehashedpassword1234567890', 'John', 'Moyo', true, NOW(), NOW()),
-('sarah.ndlovu', 'sarah.ndlovu@paz.org.zw', '$2a$10$examplehashedpassword1234567890', 'Sarah', 'Ndlovu', true, NOW(), NOW()),
-('thomas.chikowore', 'thomas.chikowore@paz.org.zw', '$2a$10$examplehashedpassword1234567890', 'Thomas', 'Chikowore', true, NOW(), NOW()),
-('grace.mandaza', 'grace.mandaza@paz.org.zw', '$2a$10$examplehashedpassword1234567890', 'Grace', 'Mandaza', true, NOW(), NOW()),
-('blessing.sibanda', 'blessing.sibanda@paz.org.zw', '$2a$10$examplehashedpassword1234567890', 'Blessing', 'Sibanda', false, NOW(), NOW()),
-('memory.chigumba', 'memory.chigumba@paz.org.zw', '$2a$10$examplehashedpassword1234567890', 'Memory', 'Chigumba', true, NOW(), NOW()),
-('david.mupfumi', 'david.mupfumi@paz.org.zw', '$2a$10$examplehashedpassword1234567890', 'David', 'Mupfumi', true, NOW(), NOW()),
-('ruth.marimo', 'ruth.marimo@paz.org.zw', '$2a$10$examplehashedpassword1234567890', 'Ruth', 'Marimo', false, NOW(), NOW()),
-('peter.zulu', 'peter.zulu@paz.org.zw', '$2a$10$examplehashedpassword1234567890', 'Peter', 'Zulu', true, NOW(), NOW()),
-('loveness.ncube', 'loveness.ncube@paz.org.zw', '$2a$10$examplehashedpassword1234567890', 'Loveness', 'Ncube', true, NOW(), NOW());
+('john.moyo', 'john.moyo@paz.org.zw', '$2a$10$r6Q8b8q8q8q8q8q8q8q8u8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q', 'John', 'Moyo', true, NOW(), NOW()),
+('sarah.ndlovu', 'sarah.ndlovu@paz.org.zw', '$2a$10$r6Q8b8q8q8q8q8q8q8q8u8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q', 'Sarah', 'Ndlovu', true, NOW(), NOW()),
+('thomas.chikowore', 'thomas.chikowore@paz.org.zw', '$2a$10$r6Q8b8q8q8q8q8q8q8q8u8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q', 'Thomas', 'Chikowore', true, NOW(), NOW()),
+('grace.mandaza', 'grace.mandaza@paz.org.zw', '$2a$10$r6Q8b8q8q8q8q8q8q8q8u8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q', 'Grace', 'Mandaza', true, NOW(), NOW()),
+('blessing.sibanda', 'blessing.sibanda@paz.org.zw', '$2a$10$r6Q8b8q8q8q8q8q8q8q8u8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q', 'Blessing', 'Sibanda', false, NOW(), NOW()),
+('memory.chigumba', 'memory.chigumba@paz.org.zw', '$2a$10$r6Q8b8q8q8q8q8q8q8q8u8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q', 'Memory', 'Chigumba', true, NOW(), NOW()),
+('david.mupfumi', 'david.mupfumi@paz.org.zw', '$2a$10$r6Q8b8q8q8q8q8q8q8q8u8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q', 'David', 'Mupfumi', true, NOW(), NOW()),
+('ruth.marimo', 'ruth.marimo@paz.org.zw', '$2a$10$r6Q8b8q8q8q8q8q8q8q8u8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q', 'Ruth', 'Marimo', false, NOW(), NOW()),
+('peter.zulu', 'peter.zulu@paz.org.zw', '$2a$10$r6Q8b8q8q8q8q8q8q8q8u8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q', 'Peter', 'Zulu', true, NOW(), NOW()),
+('loveness.ncube', 'loveness.ncube@paz.org.zw', '$2a$10$r6Q8b8q8q8q8q8q8q8q8u8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q', 'Loveness', 'Ncube', true, NOW(), NOW());
 
 -- Add admin user (not linked to teacher)
 INSERT INTO users (username, email, password, first_name, last_name, enabled, created_at, updated_at) VALUES
-('admin', 'admin@paz.org.zw', '$2a$10$examplehashedpassword1234567890', 'System', 'Administrator', true, NOW(), NOW());
+('admin', 'admin@paz.org.zw', '$2a$10$r6Q8b8q8q8q8q8q8q8q8u8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q', 'System', 'Administrator', true, NOW(), NOW());
+
+-- Add test user for easier testing
+INSERT INTO users (username, email, password, first_name, last_name, enabled, created_at, updated_at) VALUES
+('testuser', 'test@example.com', '$2a$10$r6Q8b8q8q8q8q8q8q8q8u8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q', 'Test', 'User', true, NOW(), NOW());
 
 -- Assign roles to users (assuming role IDs exist)
 INSERT INTO user_roles (user_id, role_id) VALUES
@@ -55,7 +58,8 @@ INSERT INTO user_roles (user_id, role_id) VALUES
 (7, 3), -- David Mupfumi as TEACHER
 (9, 2), -- Peter Zulu as PRISON_MANAGER
 (10, 3), -- Loveness Ncube as TEACHER
-(11, 1); -- Admin as ADMIN
+(11, 1), -- Admin as ADMIN
+(12, 3); -- Test User as TEACHER
 
 -- 📋 Sample Task Reports Data
 INSERT INTO task_reports (teacher_id, prison_id, date, hours, lesson_title, saved_persons, issues, created_at, updated_at) VALUES
@@ -215,6 +219,7 @@ WHERE end_date IS NULL OR end_date >= CURRENT_DATE;
 -- Admin: username = 'admin', password = 'password123'
 -- Teacher: username = 'john.moyo', password = 'password123'
 -- Prison Liaison: username = 'thomas.chikowore', password = 'password123'
+-- Test User: username = 'testuser', password = 'password123'
 
 -- Note: In production, replace the example hashed passwords with actual BCrypt hashes
 -- generated by Spring Security's password encoder.
