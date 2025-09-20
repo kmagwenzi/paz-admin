@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/auth'
 
 export default function LoginForm() {
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -17,7 +17,7 @@ export default function LoginForm() {
     setLoading(true)
     setError('')
 
-    const result = await login({ email, password })
+    const result = await login({ username, password })
 
     if (result.success) {
       router.push('/dashboard')
@@ -42,17 +42,17 @@ export default function LoginForm() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-            Email Address
+          <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+            Username
           </label>
           <input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            id="username"
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 text-sm sm:text-base"
-            placeholder="Enter your email"
+            placeholder="Enter your username"
           />
         </div>
 
@@ -82,7 +82,7 @@ export default function LoginForm() {
 
       <div className="mt-6 text-center">
         <p className="text-xs sm:text-sm text-gray-600">
-          Demo credentials: admin@paz.org / password123
+          Demo credentials: testuser / password123
         </p>
       </div>
     </div>
