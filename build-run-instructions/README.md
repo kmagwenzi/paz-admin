@@ -59,7 +59,7 @@ paz-admin/
 ### 1. Clone and Navigate
 
 ```bash
-git clone <repository-url>
+git clone git@github.com:kmagwenzi/paz-admin.git
 cd paz-admin
 ```
 
