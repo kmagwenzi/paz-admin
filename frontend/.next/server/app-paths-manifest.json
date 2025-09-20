@@ -1,3 +1,11 @@
 {
-  "/not-found": "app/not-found.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/route": "app/api/auth/route.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/prisons/new/page": "app/prisons/new/page.js",
+  "/prisons/page": "app/prisons/page.js",
+  "/teachers/new/page": "app/teachers/new/page.js",
+  "/teachers/page": "app/teachers/page.js"
 }

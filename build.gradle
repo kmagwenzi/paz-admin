@@ -5,8 +5,8 @@ plugins {
 }
 
 java {
-    sourceCompatibility = '24'
-    targetCompatibility = '24'
+    sourceCompatibility = '21'
+    targetCompatibility = '21'
 }
 
 group = 'com.paz.admin'

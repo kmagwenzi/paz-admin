@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
+  experimental: {},
   env: {
     API_URL: process.env.API_URL || 'http://localhost:8080/api',
   },
@@ -13,8 +11,8 @@ const nextConfig = {
         destination: '/dashboard',
         permanent: false,
       },
-    ]
+    ];
   },
 }
 
-module.exports = nextConfig
+module.exports = nextConfig;
