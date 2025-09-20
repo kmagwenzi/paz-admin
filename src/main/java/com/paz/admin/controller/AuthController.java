@@ -52,13 +52,20 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        // Debug logging
+        System.out.println("DEBUG: Authentication attempt for username: " + loginRequest.getUsername());
+        System.out.println("DEBUG: PasswordEncoder type: " + passwordEncoder.getClass().getSimpleName());
+        
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
+        
+        System.out.println("DEBUG: Authentication successful for user: " + userDetails.getUsername());
 
         return ResponseEntity.ok(new JwtResponse(
                 jwt,
@@ -66,6 +73,12 @@ public class AuthController {
                 userDetails.getUsername(),
                 userDetails.getEmail()
         ));
+        } catch (Exception e) {
+            System.out.println("DEBUG: Authentication failed for username: " + loginRequest.getUsername());
+            System.out.println("DEBUG: Error: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @PostMapping("/signup")
