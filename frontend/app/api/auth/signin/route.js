@@ -19,7 +19,7 @@ const MOCK_USERS = [
   {
     id: 3,
     email: 'demo@paz.org',
-    password: 'demo123',
+    password: 'password123',
     username: 'demo',
     roles: ['TEACHER']
   },

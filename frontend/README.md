@@ -98,11 +98,11 @@ frontend/
 
 ### Demo Credentials
 - **Username**: admin
-- **Password**: demo123
+- **Password**: password123
 - **Email**: admin@paz.org
 
 - **Demo User**: demo
-- **Password**: demo123
+- **Password**: password123
 - **Email**: demo@paz.org.zw
 
 

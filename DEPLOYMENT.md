@@ -173,7 +173,7 @@ Run both backend and frontend, then test API endpoints:
 # Test authentication
 curl -X POST http://localhost:8080/api/auth/signin \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"demo123"}'
+  -d '{"username":"admin","password":"password123"}'
 ```
 
 ## 📈 Monitoring and Logs

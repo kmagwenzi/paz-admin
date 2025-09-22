@@ -5,12 +5,14 @@ This guide provides step-by-step instructions for setting up and running the PAZ
 ## 📋 Prerequisites
 
 ### Required Software
+
 - **Java 21** or later ([Download JDK](https://adoptium.net/))
 - **Node.js 18+** and npm ([Download Node.js](https://nodejs.org/))
 - **PostgreSQL 15** ([Download PostgreSQL](https://www.postgresql.org/download/))
 - **Git** for version control
 
 ### Verify Installations
+
 ```bash
 # Check Java version
 java -version
@@ -29,12 +31,15 @@ git --version
 ## 🗄️ PostgreSQL Manual Setup
 
 ### 1. Install PostgreSQL
+
 Follow the official installation guide for your operating system:
+
 - **Ubuntu/Debian**: `sudo apt-get install postgresql-15 postgresql-contrib-15`
 - **macOS**: `brew install postgresql@15`
 - **Windows**: Download from [postgresql.org](https://www.postgresql.org/download/windows/)
 
 ### 2. Start PostgreSQL Service
+
 ```bash
 # Ubuntu/Debian
 sudo systemctl start postgresql
@@ -48,6 +53,7 @@ brew services start postgresql@15
 ```
 
 ### 3. Create Database and User
+
 ```bash
 # Switch to postgres user
 sudo -u postgres psql
@@ -62,18 +68,22 @@ GRANT ALL PRIVILEGES ON DATABASE paz_admin_db TO paz_admin;
 ```
 
 ### 4. Configure PostgreSQL for Remote Connections (Optional)
+
 Edit `/etc/postgresql/15/main/postgresql.conf`:
+
 ```ini
 listen_addresses = '*'
 ```
 
 Edit `/etc/postgresql/15/main/pg_hba.conf`:
+
 ```ini
 # Allow connections from any IP address
 host    all             all             0.0.0.0/0               md5
 ```
 
 Reload configuration:
+
 ```bash
 sudo systemctl reload postgresql
 ```
@@ -81,12 +91,15 @@ sudo systemctl reload postgresql
 ## 🏗️ Backend Setup (Spring Boot)
 
 ### 1. Navigate to Backend Directory
+
 ```bash
 cd paz-admin
 ```
 
 ### 2. Configure Database Connection
+
 Edit `src/main/resources/application.properties`:
+
 ```properties
 # Database configuration
 spring.datasource.url=jdbc:postgresql://localhost:5432/paz_admin_db
@@ -109,6 +122,7 @@ jwt.refreshExpiration=604800000
 ```
 
 ### 3. Build the Backend
+
 ```bash
 # Using Gradle Wrapper (recommended)
 ./gradlew build
@@ -118,6 +132,7 @@ gradle build
 ```
 
 ### 4. Run the Backend
+
 ```bash
 # Development mode with auto-reload
 ./gradlew bootRun
@@ -127,6 +142,7 @@ java -jar build/libs/*.jar
 ```
 
 ### 5. Verify Backend is Running
+
 ```bash
 # Check health endpoint
 curl http://localhost:8080/actuator/health
@@ -137,17 +153,21 @@ curl http://localhost:8080/actuator/health
 ## ⚛️ Frontend Setup (Next.js)
 
 ### 1. Navigate to Frontend Directory
+
 ```bash
 cd frontend
 ```
 
 ### 2. Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### 3. Configure Environment Variables
+
 Create `frontend/.env.local`:
+
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:8080/api
 API_URL=http://localhost:8080/api
@@ -155,6 +175,7 @@ NODE_ENV=development
 ```
 
 ### 4. Build and Run the Frontend
+
 ```bash
 # Development mode with hot reload
 npm run dev
@@ -165,11 +186,13 @@ npm start
 ```
 
 ### 5. Verify Frontend is Running
+
 Open http://localhost:3000 in your browser. You should see the PAZ Admin Portal login page.
 
 ## 📊 Load Sample Data
 
 ### 1. Apply Database Migrations
+
 The Spring Boot application will automatically apply Flyway migrations on first run. Verify tables are created:
 
 ```bash
@@ -177,12 +200,14 @@ psql -h localhost -U paz_admin -d paz_admin_db -c "\dt"
 ```
 
 ### 2. Load Sample Data
+
 ```bash
 # Load the sample data SQL file
 psql -h localhost -U paz_admin -d paz_admin_db < build-run-instructions/sample_data.sql
 ```
 
 ### 3. Verify Data Load
+
 ```bash
 # Check if data was loaded successfully
 psql -h localhost -U paz_admin -d paz_admin_db -c "SELECT COUNT(*) FROM teachers;"
@@ -192,6 +217,7 @@ psql -h localhost -U paz_admin -d paz_admin_db -c "SELECT COUNT(*) FROM task_rep
 ## 🔧 Development Workflow
 
 ### Running in Development Mode
+
 ```bash
 # Terminal 1: Start PostgreSQL (if not running as service)
 sudo systemctl start postgresql
@@ -206,6 +232,7 @@ npm run dev
 ```
 
 ### Useful Development Commands
+
 ```bash
 # Run backend tests
 ./gradlew test
@@ -224,6 +251,7 @@ cd frontend && npm run build
 ## ⚙️ Configuration Files
 
 ### Backend Configuration (`application.properties`)
+
 ```properties
 # Server port
 server.port=8080
@@ -245,6 +273,7 @@ logging.level.zw.org.paz=DEBUG
 ```
 
 ### Frontend Configuration (`next.config.js`)
+
 ```javascript
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -262,29 +291,31 @@ module.exports = nextConfig
 ## 🧪 Testing the Setup
 
 ### 1. Test Database Connection
+
 ```bash
 psql -h localhost -U paz_admin -d paz_admin_db -c "SELECT version();"
 ```
 
 ### 2. Test Backend API
-```bash
+
 # Health check
 curl http://localhost:8080/actuator/health
 
 # Test authentication
 curl -X POST http://localhost:8080/api/auth/signin \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"demo123"}'
-```
+  -d '{"username":"admin","password":"password123"}'
 
 ### 3. Test Frontend
+
 1. Open http://localhost:3000
 2. Try logging in with:
-   - Username: `admin`, Password: `demo123` (Admin role)
-   - Username: `demo`, Password: `demo123` (Teacher role)
+   - Username: `admin`, Password: `password123` (Admin role)
+   - Username: `demo`, Password: `password123` (Teacher role)
 3. Verify you can access different pages based on user role
 
 ### 4. Test Sample Data
+
 ```bash
 # Check sample data was loaded
 psql -h localhost -U paz_admin -d paz_admin_db -c "SELECT * FROM teachers LIMIT 5;"
@@ -296,6 +327,7 @@ psql -h localhost -U paz_admin -d paz_admin_db -c "SELECT * FROM task_reports LI
 ### Common Issues and Solutions
 
 **Database Connection Issues**
+
 ```bash
 # Check if PostgreSQL is running
 sudo systemctl status postgresql
@@ -308,6 +340,7 @@ telnet localhost 5432
 ```
 
 **Port Conflicts**
+
 ```bash
 # Check what's using port 8080
 lsof -i :8080
@@ -320,6 +353,7 @@ server.port=8081
 ```
 
 **Build Failures**
+
 ```bash
 # Clean and rebuild
 ./gradlew clean build
@@ -329,6 +363,7 @@ cd frontend && rm -rf node_modules package-lock.json && npm install
 ```
 
 **Authentication Issues**
+
 - Verify the sample data was loaded correctly
 - Check the password hashes in the sample_data.sql file
 - Ensure JWT secret is configured properly
@@ -336,6 +371,7 @@ cd frontend && rm -rf node_modules package-lock.json && npm install
 ### Logs and Debugging
 
 **Backend Logs**
+
 ```bash
 # View Spring Boot logs
 tail -f build/logs/application.log
@@ -345,10 +381,12 @@ tail -f build/logs/application.log
 ```
 
 **Frontend Logs**
+
 - Check browser developer console for errors
 - View Next.js logs in the terminal where `npm run dev` is running
 
 **Database Logs**
+
 ```bash
 # PostgreSQL logs location
 # Ubuntu/Debian: /var/log/postgresql/postgresql-15-main.log
@@ -361,6 +399,7 @@ tail -f /var/log/postgresql/postgresql-15-main.log
 ## 📝 Maintenance and Updates
 
 ### Database Backups
+
 ```bash
 # Create backup
 pg_dump -h localhost -U paz_admin -d paz_admin_db > backup_$(date +%Y%m%d).sql
@@ -370,6 +409,7 @@ psql -h localhost -U paz_admin -d paz_admin_db < backup.sql
 ```
 
 ### Application Updates
+
 ```bash
 # Pull latest code
 git pull origin main
@@ -385,6 +425,7 @@ cd frontend && npm install
 ```
 
 ### Cleanup
+
 ```bash
 # Remove build artifacts
 ./gradlew clean
@@ -397,7 +438,9 @@ rm -rf frontend/node_modules
 ## 🚀 Production Considerations
 
 ### Environment Configuration
+
 Create `application-prod.properties`:
+
 ```properties
 # Production database
 spring.datasource.url=jdbc:postgresql://production-db:5432/paz_admin_db
@@ -412,6 +455,7 @@ logging.level.zw.org.paz=INFO
 ```
 
 ### Build Production Artifacts
+
 ```bash
 # Backend
 ./gradlew build -x test
@@ -421,6 +465,7 @@ cd frontend && npm run build
 ```
 
 ### Run in Production
+
 ```bash
 # Backend
 java -jar build/libs/*.jar --spring.profiles.active=prod
@@ -432,6 +477,7 @@ cd frontend && npm start
 ## 📞 Support
 
 If you encounter issues:
+
 1. Check the troubleshooting section above
 2. Verify all prerequisites are installed correctly
 3. Check application logs for error messages
