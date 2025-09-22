@@ -82,10 +82,13 @@ export default function LoginForm() {
 
       <div className="mt-6 text-center">
         <p className="text-xs sm:text-sm text-gray-600">
-          Demo credentials: testuser / password123
+          Demo credentials: admin / admin123 (Admin role)
         </p>
         <p className="text-xs sm:text-sm text-gray-600 mt-1">
-          Or try: admin / password123
+          Or try: manager / password123 (Prison Manager role)
+        </p>
+        <p className="text-xs sm:text-sm text-gray-600 mt-1">
+          Or try: demo / demo123 (Teacher role)
         </p>
       </div>
     </div>

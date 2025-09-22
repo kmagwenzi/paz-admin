@@ -49,11 +49,8 @@ public class WebSecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        // For testing, use NoOpPasswordEncoder to allow plaintext passwords
-        // In production, this should be BCryptPasswordEncoder
-        // return new BCryptPasswordEncoder();
-        // For development with plaintext passwords, use:
-        return org.springframework.security.crypto.password.NoOpPasswordEncoder.getInstance();
+        // Use BCryptPasswordEncoder to match the hashed passwords in the database
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

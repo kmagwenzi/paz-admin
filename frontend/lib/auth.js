@@ -24,14 +24,18 @@ export const AuthProvider = ({ children }) => {
 
   const verifyToken = async (token) => {
     try {
-      const response = await fetch('/api/auth/verify', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      if (response.ok) {
-        const userData = await response.json()
-        setUser(userData)
+      // For mock implementation, we'll decode the token directly
+      const payload = JSON.parse(Buffer.from(token, 'base64').toString())
+      if (payload && payload.sub) {
+        // Set user from token payload
+        setUser({
+          id: payload.sub,
+          email: payload.email,
+          username: payload.username,
+          roles: payload.roles
+        })
+      } else {
+        logout()
       }
     } catch (error) {
       console.error('Token verification failed:', error)
@@ -58,10 +62,12 @@ export const AuthProvider = ({ children }) => {
         setUser(user)
         return { success: true }
       } else {
-        return { success: false, error: 'Invalid credentials' }
+        const errorData = await response.json().catch(() => ({}))
+        return { success: false, error: errorData.message || 'Invalid credentials' }
       }
     } catch (error) {
-      return { success: false, error: 'Login failed' }
+      console.error('Login error:', error)
+      return { success: false, error: 'Login failed. Please check if the backend server is running.' }
     }
   }
 
