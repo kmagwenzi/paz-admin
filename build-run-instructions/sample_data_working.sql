@@ -27,7 +27,7 @@ INSERT INTO prisons (name, location, capacity, current_population, contact_email
 ('Gwanda Prison', 'Gwanda', 350, 280, 'gwanda.prison@justice.gov.zw', '+263840123456', NOW(), NOW()),
 ('Hwange Prison', 'Hwange', 500, 420, 'hwange.prison@justice.gov.zw', '+263813456789', NOW(), NOW());
 
--- 👥 Sample Users Data (with properly hashed BCrypt passwords - all passwords are "password123")
+-- 👥 Sample Users Data (with properly hashed BCrypt passwords - all passwords are "demo123")
 -- Note: The admin user already exists from migration, so we'll skip inserting it again
 INSERT INTO users (username, email, password, first_name, last_name, enabled, created_at, updated_at) VALUES
 ('john.moyo', 'john.moyo@paz.org.zw', '$2a$10$r6Q8b8q8q8q8q8q8q8q8u8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q8q', 'John', 'Moyo', true, NOW(), NOW()),
@@ -74,7 +74,8 @@ LEFT JOIN roles r ON ur.role_id = r.id
 ORDER BY u.username;
 
 -- 🎯 Test User Credentials
--- Admin: username = 'admin', password = 'admin123'
--- Teacher: username = 'john.moyo', password = 'password123'
--- Prison Liaison: username = 'thomas.chikowore', password = 'password123'
--- Test User: username = 'testuser', password = 'password123'
+-- Admin: username = 'admin', password = 'demo123'
+-- Demo User: username = 'demo', password = 'demo123'
+-- Teacher: username = 'john.moyo', password = 'demo123'
+-- Prison Liaison: username = 'thomas.chikowore', password = 'demo123'
+-- Test User: username = 'testuser', password = 'demo123'

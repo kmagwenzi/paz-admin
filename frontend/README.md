@@ -97,9 +97,14 @@ frontend/
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ### Demo Credentials
-
+- **Username**: admin
+- **Password**: demo123
 - **Email**: admin@paz.org
-- **Password**: password123
+
+- **Demo User**: demo
+- **Password**: demo123
+- **Email**: demo@paz.org.zw
+
 
 ## Available Scripts
 

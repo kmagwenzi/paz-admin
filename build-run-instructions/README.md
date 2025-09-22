@@ -259,10 +259,15 @@ curl http://localhost:8080/actuator/health
 ### 2. Test Authentication
 
 ```bash
-# Test login endpoint
-curl -X POST http://localhost:8080/api/auth/login \
+# Test login endpoint with admin user
+curl -X POST http://localhost:8080/api/auth/signin \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"password123"}'
+  -d '{"username":"admin","password":"demo123"}'
+
+# Test login endpoint with demo user
+curl -X POST http://localhost:8080/api/auth/signin \
+  -H "Content-Type: application/json" \
+  -d '{"username":"demo","password":"demo123"}'
 ```
 
 ### 3. Test Frontend-Backend Connection
@@ -351,7 +356,7 @@ NODE_ENV=production
 
 ## 📝 Next Steps After Setup
 
-1. **Login**: Use default admin credentials (see sample data)
+1. **Login**: Use admin credentials (username: admin, password: demo123) or demo user (username: demo, password: demo123)
 2. **Explore Features**: Test task reports, print requisitions, and class management
 3. **Review Documentation**: Check the main README.md for feature overview
 4. **Development**: Start implementing new features or fixing issues

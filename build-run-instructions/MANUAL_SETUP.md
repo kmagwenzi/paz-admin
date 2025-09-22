@@ -272,17 +272,17 @@ psql -h localhost -U paz_admin -d paz_admin_db -c "SELECT version();"
 curl http://localhost:8080/actuator/health
 
 # Test authentication
-curl -X POST http://localhost:8080/api/auth/login \
+curl -X POST http://localhost:8080/api/auth/signin \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"password123"}'
+  -d '{"username":"admin","password":"demo123"}'
 ```
 
 ### 3. Test Frontend
 1. Open http://localhost:3000
 2. Try logging in with:
-   - Username: `admin`
-   - Password: `password123`
-3. Verify you can access different pages
+   - Username: `admin`, Password: `demo123` (Admin role)
+   - Username: `demo`, Password: `demo123` (Teacher role)
+3. Verify you can access different pages based on user role
 
 ### 4. Test Sample Data
 ```bash
