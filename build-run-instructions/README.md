@@ -71,7 +71,7 @@ docker-compose up -d
 
 This command will start:
 
-- **PostgreSQL** database on port 5432
+- **PostgreSQL** database on port 5433
 - **Spring Boot Backend** on port 8080
 - **Next.js Frontend** on port 3000
 
@@ -92,7 +92,7 @@ docker-compose logs postgres
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8080/api
 - **API Health**: http://localhost:8080/actuator/health
-- **Database**: localhost:5432 (username: paz_admin, password: paz_admin_password)
+- **Database**: localhost:5433 (username: paz_admin, password: paz_admin_password)
 
 ## 🗄️ Manual PostgreSQL Setup
 
@@ -262,12 +262,17 @@ curl http://localhost:8080/actuator/health
 # Test login endpoint with admin user
 curl -X POST http://localhost:8080/api/auth/signin \
   -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"demo123"}'
+  -d '{"username":"admin","password":"password123"}'
 
-# Test login endpoint with demo user
+# Test login endpoint with teacher user
 curl -X POST http://localhost:8080/api/auth/signin \
   -H "Content-Type: application/json" \
-  -d '{"username":"demo","password":"demo123"}'
+  -d '{"username":"john.moyo","password":"password123"}'
+
+# Test login endpoint with test user
+curl -X POST http://localhost:8080/api/auth/signin \
+  -H "Content-Type: application/json" \
+  -d '{"username":"testuser","password":"password123"}'
 ```
 
 ### 3. Test Frontend-Backend Connection
@@ -356,7 +361,7 @@ NODE_ENV=production
 
 ## 📝 Next Steps After Setup
 
-1. **Login**: Use admin credentials (username: admin, password: demo123) or demo user (username: demo, password: demo123)
+1. **Login**: Use admin credentials (username: admin, password: password123) or teacher user (username: john.moyo, password: password123) or test user (username: testuser, password: password123)
 2. **Explore Features**: Test task reports, print requisitions, and class management
 3. **Review Documentation**: Check the main README.md for feature overview
 4. **Development**: Start implementing new features or fixing issues
@@ -373,5 +378,5 @@ If you encounter issues:
 
 ---
 
-*Last Updated: 2025-09-18*
+*Last Updated: 2025-09-22*
 *For additional support, refer to the main project documentation or contact the development team.*
